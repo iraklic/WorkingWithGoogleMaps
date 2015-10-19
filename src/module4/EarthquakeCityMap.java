@@ -76,7 +76,7 @@ public class EarthquakeCityMap extends PApplet {
 		
 		// FOR TESTING: Set earthquakesURL to be one of the testing files by uncommenting
 		// one of the lines below.  This will work whether you are online or offline
-		//earthquakesURL = "test1.atom";
+		earthquakesURL = "test1.atom";
 		//earthquakesURL = "test2.atom";
 		
 		// WHEN TAKING THIS QUIZ: Uncomment the next line
@@ -160,15 +160,13 @@ public class EarthquakeCityMap extends PApplet {
 	// "country" property of its PointFeature to the country where it occurred
 	// and returns true.  Notice that the helper method isInCountry will
 	// set this "country" property already.  Otherwise it returns false.
-	private boolean isLand(PointFeature earthquake) {
+	private boolean isLand(PointFeature earthquake)
+		{
+		for (Marker countryMarker : countryMarkers)
+			if (isInCountry(earthquake, countryMarker)) return true;
 		
-		// IMPLEMENT THIS: loop over all countries to check if location is in any of them
-		
-		// TODO: Implement this method using the helper method isInCountry
-		
-		// not inside any country
 		return false;
-	}
+		}
 	
 	// prints countries with number of earthquakes
 	// You will want to loop through the country markers or country features
@@ -178,7 +176,13 @@ public class EarthquakeCityMap extends PApplet {
 	// And LandQuakeMarkers have a "country" property set.
 	private void printQuakes() 
 	{
-		// TODO: Implement this method
+		for (Marker countryMarker : countryMarkers)
+		{
+			int counter = 0;
+			for (Marker quake : quakeMarkers)
+				if (quake.getProperty("country") == countryMarker.getProperty("name")) counter++;
+			if (counter != 0) System.out.println(countryMarker.getProperty("name") + " - " + counter);
+		}
 	}
 	
 	
@@ -187,8 +191,9 @@ public class EarthquakeCityMap extends PApplet {
 	// This will also add the country property to the properties of the earthquake 
 	// feature if it's in one of the countries.
 	// You should not have to modify this code
-	private boolean isInCountry(PointFeature earthquake, Marker country) {
-		// getting location of feature
+	private boolean isInCountry(PointFeature earthquake, Marker country)
+		{
+//		getting location of feature
 		Location checkLoc = earthquake.getLocation();
 
 		// some countries represented it as MultiMarker
