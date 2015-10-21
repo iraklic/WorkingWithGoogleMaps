@@ -16,14 +16,14 @@ public class LandQuakeMarker extends EarthquakeMarker {
 		
 		// calling EarthquakeMarker constructor
 		super(quake);
-		
 		// setting field in earthquake marker
 		isOnLand = true;
 	}
 
 
 	@Override
-	public void drawEarthquake(PGraphics pg, float x, float y) {
+	public void drawEarthquake(PGraphics pg, float x, float y)
+		{
 		// Draw a centered circle for ocean quakes
 		// DO NOT set the fill color here.  That will be set in the EarthquakeMarker
 		// class to indicate the depth of the earthquake.
@@ -33,8 +33,9 @@ public class LandQuakeMarker extends EarthquakeMarker {
 		// and how it is set in the EarthquakeMarker constructor
 		
 		// TODO: Implement this method
-		
-	}
+		float size = (float) (2.5 * (float) getProperty("magnitude"));
+		pg.ellipse(x, y, size, size);
+		}
 	
 
 	// Get the country the earthquake is in

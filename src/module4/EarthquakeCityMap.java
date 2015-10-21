@@ -77,10 +77,10 @@ public class EarthquakeCityMap extends PApplet {
 		// FOR TESTING: Set earthquakesURL to be one of the testing files by uncommenting
 		// one of the lines below.  This will work whether you are online or offline
 		//earthquakesURL = "test1.atom";
-		earthquakesURL = "test2.atom";
+		//earthquakesURL = "test2.atom";
 		
 		// WHEN TAKING THIS QUIZ: Uncomment the next line
-		//earthquakesURL = "quiz1.atom";
+		earthquakesURL = "quiz1.atom";
 		
 		
 		// (2) Reading in earthquake data and geometric properties
@@ -131,7 +131,8 @@ public class EarthquakeCityMap extends PApplet {
 	
 	// helper method to draw key in GUI
 	// TODO: Update this method as appropriate
-	private void addKey() {	
+	private void addKey() {
+
 		// Remember you can use Processing's graphics methods here
 		fill(255, 250, 240);
 		rect(25, 50, 150, 250);
@@ -140,18 +141,23 @@ public class EarthquakeCityMap extends PApplet {
 		textAlign(LEFT, CENTER);
 		textSize(12);
 		text("Earthquake Key", 50, 75);
-		
-		fill(color(255, 0, 0));
-		ellipse(50, 125, 15, 15);
-		fill(color(255, 255, 0));
-		ellipse(50, 175, 10, 10);
-		fill(color(0, 0, 255));
-		ellipse(50, 225, 5, 5);
-		
+
+		fill(255, 0, 0);
+		float x0 = 50;
+		float y0 = 125;
+		triangle(x0 - 5, y0 + 5, x0, y0 - 5, x0 + 5, y0 + 5);
 		fill(0, 0, 0);
-		text("5.0+ Magnitude", 75, 125);
-		text("4.0+ Magnitude", 75, 175);
-		text("Below 4.0", 75, 225);
+		text("City Marker", x0 + 15, y0);
+		
+		fill(255, 255, 255);
+		ellipse(50, 150, 10, 10);
+		fill(0, 0, 0);
+		text("Land Quake", 65, 150);
+		
+		fill(255, 255, 255);
+		rect(45, 170, 10, 10);
+		fill(0, 0, 0);
+		text("Ocean Quake", 65, 175);
 	}
 
 	
