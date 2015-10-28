@@ -66,6 +66,8 @@ public class EarthquakeCityMap extends PApplet {
 	private CommonMarker lastSelected;
 	private CommonMarker lastClicked;
 	
+	private int requestedQuakeMagnitude = 0;
+	
 	public void setup() {		
 		// (1) Initializing canvas and map tiles
 		size(900, 700, OPENGL);
@@ -212,6 +214,7 @@ public class EarthquakeCityMap extends PApplet {
 				checkCitiesForClick();
 			}
 		}
+		showThreshold();
 	}
 	
 	// Helper method that will check if a city marker was clicked on
@@ -238,7 +241,7 @@ public class EarthquakeCityMap extends PApplet {
 				}
 				return;
 			}
-		}		
+		}
 	}
 	
 	// Helper method that will check if an earthquake marker was clicked on
@@ -340,7 +343,18 @@ public class EarthquakeCityMap extends PApplet {
 		line(centerx-8, centery-8, centerx+8, centery+8);
 		line(centerx-8, centery+8, centerx+8, centery-8);
 		
-		
+		// BUTTONS
+		fill(100,100,100);
+		triangle(50, 350, 80, 330, 110, 350);
+		rect(55, 355, 50, 50);
+		triangle(50, 410, 80, 430, 110, 410);
+		fill(255, 0, 0);
+		textSize(20);
+		text(requestedQuakeMagnitude, 70, 375);
+		fill(255, 255, 255);
+		textSize(12);
+		text("Select earthquake", 40, 440);
+		text("magnitude threshold", 40, 455);
 	}
 
 	
@@ -426,5 +440,26 @@ public class EarthquakeCityMap extends PApplet {
 		}
 		return false;
 	}
+	private void showThreshold()
+		{
+		if (mouseX > 50 && mouseX < 110 && mouseY > 330 && mouseY < 350)
+			{
+			requestedQuakeMagnitude++;
+			urgentEarthquakes();
+			}
+		if (mouseX > 50 && mouseX < 110 && mouseY < 430 && mouseY > 410)
+			{
+			if(requestedQuakeMagnitude >= 1) requestedQuakeMagnitude--;
+			urgentEarthquakes();
+			}
+		}
+	private void urgentEarthquakes()
+		{
+		for(Marker marker : quakeMarkers)
+			{
+			if (Float.parseFloat(marker.getProperty("magnitude").toString()) < requestedQuakeMagnitude) marker.setHidden(true);
+			else marker.setHidden(false);
+			}
+		}
 
 }
